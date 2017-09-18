@@ -17,15 +17,16 @@ arrayDraw::arrayDraw(QWidget *w):drawFrame(w)
 
 arrayDraw::~arrayDraw()
 {
+      qDebug() << "array draw  " ;
     if(!data->m_drawMAP.empty())
     {
         QStringList keyList;
         keyList = data->m_drawMAP.keys();
+        qDebug() << "array draw key " << keyList;
         int len,i;
         len = keyList.size();
         for(i =0; i <len; i++)
             deleteDraw(keyList[i]);
-
     }
 }
 void arrayDraw::init()
@@ -33,7 +34,7 @@ void arrayDraw::init()
 
     sc->addItem(m_drawing);
     setDrawStyle();
-
+    //setFitWin();
 }
 /*
 void arrayDraw::scrollContentsBy ( int dx, int dy )
@@ -97,7 +98,12 @@ Qt::FDiagPattern
 Qt::DiagCrossPattern
 Qt::CustomPattern
 */
-
+int arrayDraw::startDraw(qreal *buf,int len,QString key)
+{
+    float *fbuf;// it is worry
+    fbuf = (float*)buf;
+    startDraw(fbuf,len,key);
+}
 int arrayDraw::startDraw(float *buf,int len,QString key)
 {
     data->m_bStart = true;
@@ -113,8 +119,14 @@ int arrayDraw::startDraw(float *buf,int len,QString key)
 
     return 0;
 }
- 
-
+int arrayDraw::endDraw ()
+{
+    data->m_bStart = false;
+}
+void arrayDraw::setLabX(qreal *x,int len)
+{
+    data->setLabX(x,len);
+}
 
 int arrayDraw::setDrawStyle(int type,int c,int wide,int fill,int b)
 
@@ -126,6 +138,7 @@ int arrayDraw::setDrawStyle(int type,int c,int wide,int fill,int b)
 int arrayDraw::setDrawStyle(int type,QColor c,int wide,int fill,QColor bc)
 
 {
+    //qDebug() << c;
     return data->setDrawStyle(type,c,wide,fill,bc);
 
 }

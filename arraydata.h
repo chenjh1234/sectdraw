@@ -52,7 +52,7 @@ public:
 
 
 /// set current draw parameters ;
-    int setDrawStyle(int type=0,QColor c=Qt::red,int wide=1,int fill=0,QColor cl =Qt::gray);
+    int setDrawStyle(int type=0,QColor c= Qt::red,int wide=1,int fill=0,QColor cl =Qt::gray);
 ///  method to draw ruler in x direction
     qreal labMethodX(qreal x);
 /// method to draw ruler in y direction
@@ -76,6 +76,10 @@ public:
       get current draw parameters and save to m_draw;
     */
     M_DRAW getDraw();
+    void setLabX(qreal *x,int len); // replace int data
+
+    QMap<int,qreal> labX;// label in horiaon
+    
 private:
     int init();
 

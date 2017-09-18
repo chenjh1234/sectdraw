@@ -65,14 +65,16 @@ void arrayPaint::paint(QPainter *p, const QStyleOptionGraphicsItem *op,
 
 
    //qDebug() << "i  in painter = " << data->buf[5]<<i1<<i2<<data->n;
-//why we can draw oot of bounding rect ???
+//why we can draw not of bounding rect ???
 }
 void arrayPaint::paintP(QPainter *p, qreal x1, qreal y1, qreal x2, qreal y2)
 {
    int ibit;
 
-   if (data->m_coordinate == RIGHT_UP) ibit = -1;
-   else ibit = 1;
+  // if (data->m_coordinate == RIGHT_UP) ibit = -1;
+  // else ibit = 1;
+   ibit = -1;
+  // qDebug() << "ibit=" <<ibit;
 
    switch (data->m_iDrawType)
    {

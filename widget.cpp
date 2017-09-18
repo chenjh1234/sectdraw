@@ -13,8 +13,8 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
-    //testArray();
-     testSect();
+    testArray();
+     //testSect();
      //testSegy();
     //testSegd();
    // testSeg2();
@@ -42,26 +42,26 @@ void Widget::testSect()
     i = g.open_read(filen,2,3000);
     qDebug("i = %d\n",i);
     int num;
-    num = g.ptr_group[0].num;
+    num = g.listGroup[0].num;
     int *head;
     float *trace;
     num = 96*2;
 
     head = new int[128*num];
-    trace = new float[g.sam*num];
+    trace = new float[g.getSamples()*num];
 
 
     for(i = 0; i <num ;i++)
     {
-        g.read_a_trace(head +128*i,trace+g.sam*i);
+        g.read_a_trace(head +128*i,trace+g.getSamples()*i);
     }
 
     //sgv->setDrawType(DRAW_WA);
     sgv->setGain(99);
-    qDebug()<<"max.min="<< num<<g.sam;
-    sgv->setMaxMin(0,0,num,g.sam);
+    qDebug()<<"max.min="<< num<<g.getSamples();
+    sgv->setMaxMin(0,0,num,g.getSamples());
     sgv->setColorBar(1);
-    sgv->setDataPara(g.sam,g.si,128);
+    sgv->setDataPara(g.getSamples(),g.getSI(),128);
     sgv->setScale( 1,1);
     sgv->setDrawType(DRAW_VD);
     //sgv->setDrawType(DRAW_WA);
@@ -78,31 +78,37 @@ void Widget::testArray()
     ly->addWidget(gv);
     gv->setMaxMin(0,0,200,200);
     int i;
-    qreal *f,*f1;
-    f = new qreal[200];//first array
-    f1 = new qreal[200];// 2th array
+    float *f,*f1;
+    f = new float[200];//first array
+    f1 = new float[200];// 2th array
 
     for(i = 0; i <200;i++)
     {
         f[i] = i;
         f1[i] = i*1.23+5;
+        qDebug() << i << f[i];
     }
     QString key,key2;
     key = "1";
     key2= "2";
     gv->setColorBar(1);
-    gv->setCoordinate(RIGHT_UP);
+     gv->setCoordinate(RIGHT_UP);
+   // gv->setCoordinate(RIGHT_DOWN);
 
-    gv->setDrawStyle(0,1,1,0);
-    gv->setScale(5,5);
-    gv->startDraw(f,200,key);//first array
+    gv->setDrawStyle(2,1,1,0,0);
+    gv->setScale(3,3);
+    gv->setFitWin();
+    gv->startDraw(f,200-1,key);//first array
+   // gv->setDrawStyle(2,1,1,0,0);
+    //gv->startDraw(f,200,key);
 
     gv->setDrawStyle(0,2,1,0);
     gv->startDraw(f1,200,key2);// second array
-
+#if 0
     gv->setDrawStyle(1,1,1,0);
     gv->startDraw(f1,50,"");//3rd array,len = 50
     gv->show();
+#endif
     //delete f;
 }
 void Widget::testSegd()
@@ -160,8 +166,8 @@ void Widget::testSegd()
 /*
     int j;
     for(i = 0; i <num;i++)
-        for(j =0;j <g.sam;j++)
-            trace[i*g.sam + j] = j;
+        for(j =0;j <g.getSamples();j++)
+            trace[i*g.getSamples() + j] = j;
 */
     sgv->setMaxMin(0,0,num,sam);
     sgv->setColorBar(1);
@@ -207,8 +213,8 @@ void Widget::testSegy()
 /*
     int j;
     for(i = 0; i <num;i++)
-        for(j =0;j <g.sam;j++)
-            trace[i*g.sam + j] = j;
+        for(j =0;j <g.getSamples();j++)
+            trace[i*g.getSamples() + j] = j;
 */
     sgv->setMaxMin(0,0,num,sam);
     sgv->setColorBar(1);
@@ -269,8 +275,8 @@ void Widget::testSeg2()
 /*
     int j;
     for(i = 0; i <num;i++)
-        for(j =0;j <g.sam;j++)
-            trace[i*g.sam + j] = j;
+        for(j =0;j <g.getSamples();j++)
+            trace[i*g.getSamples() + j] = j;
 */
     sgv->setMaxMin(0,0,num,sam);
     sgv->setColorBar(1);
@@ -302,19 +308,19 @@ void Widget::testSect()\n
     num = 96*2;\n
 \n
     head = new int[128*num];\n
-    trace = new float[g.sam*num];\n
+    trace = new float[g.getSamples()*num];\n
 \n   
     for(i = 0; i <num ;i++)\n
     {\n
-        g.read_a_trace(head +128*i,trace+g.sam*i);\n
+        g.read_a_trace(head +128*i,trace+g.getSamples()*i);\n
     }\n
 \n
     ////sgv->setDrawType(DRAW_WA);\n
     sgv->setGain(09);\n
-    qDebug()<<"max.min="<< num<<g.sam;\n
-    sgv->setMaxMin(0,0,num,g.sam);\n
+    qDebug()<<"max.min="<< num<<g.getSamples();\n
+    sgv->setMaxMin(0,0,num,g.getSamples());\n
     sgv->setColorBar(1);\n
-    sgv->setDataPara(g.sam,g.si,128);\n
+    sgv->setDataPara(g.getSamples(),g.si,128);\n
     sgv->setScale( 1,1);\n
     sgv->setDrawType(DRAW_VD);\n
     ////sgv->setDrawType(DRAW_WA);\n

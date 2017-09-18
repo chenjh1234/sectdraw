@@ -218,6 +218,7 @@ void drawFrame::setMaxMin(qreal minx,qreal miny,qreal maxx,qreal maxy)
     data->minY = miny;
     data->maxX = maxx;
     data->maxY = maxy;
+    qDebug() << "setMaxMin = " << data->minX<<data->minY<<data->maxX<<data->maxY;
     setMaxMin();
 
 }
@@ -229,11 +230,14 @@ void drawFrame::setMaxMin()
     miny = data->minY;
     maxx = data->maxX;
     maxy = data->maxY;
+     qDebug() << "setMaxMin 11 = " <<minx << miny<< maxx<< maxy;
 
     lw = mapToSceneX(data->m_ruler.leftW);
     rw = mapToSceneX(data->m_ruler.rightW);
     tw = mapToSceneY(data->m_ruler.topW);
     bw = mapToSceneY(data->m_ruler.bottomW);
+
+     qDebug() << "setMaxMin 12 = "<< lw << rw << tw << bw;
 
     if(data->m_coordinate == RIGHT_UP) y = miny + tw;
     else y = miny - tw;
@@ -242,8 +246,9 @@ void drawFrame::setMaxMin()
                      maxx-minx + 1 + lw + rw,
                      maxy-miny + 1 + tw + bw);
     //qDebug() << "sssss="<<maxx<<minx<<lw<<rw;
-    //qDebug() << "sssss=" <<maxx-minx + 1 + lw + rw <<maxy-miny + 1 + tw + bw;
+    qDebug() << "sssss=" << minx - lw<<y<<maxx-minx + 1 + lw + rw <<maxy-miny + 1 + tw + bw;
     updateScene();
+    qDebug() << "update";
 }
 
 void drawFrame::setScale(qreal x,qreal y)
@@ -295,6 +300,7 @@ void drawFrame::isOutlook()
    // qDebug()<<" in outlook =" << w << h << iw << ih;
 
     if(ih >0 && iw >0)
+    
     if(w/iw >= OUTLOOK_TIMES || h/ih>= OUTLOOK_TIMES)
     {
         data->m_bOutlook = true;

@@ -10,15 +10,15 @@ int testGri()
     i = g.open_read(filen,2,3000);
     qDebug("i = %d\n",i);
     int num;
-    num = g.ptr_group[0].num;
+    num = g.listGroup[0].num;
     int *head;
     float *trace;
     head = new int[128*num];
-    trace = new float[g.sam*num];
+    trace = new float[g.getSamples()*num];
 
     for(i = 0; i <num ;i++)
     {
-        g.read_a_trace(head +128*i,trace+g.sam*i);
+        g.read_a_trace(head +128*i,trace+g.getSamples()*i);
     }
     return 0;
 

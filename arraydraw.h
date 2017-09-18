@@ -78,12 +78,15 @@ public:
 */
     //int startDraw(qreal *buf,int len,QString key = "");
     int startDraw(float *buf,int len,QString key = "");
+    int startDraw(qreal *buf,int len,QString key = "");
+    int endDraw ();
 
 /**
     delete the array Draw with key.
     it will delete all the things From the MAP(LIST) according to the key,
 */
     int deleteDraw(QString key);
+    void setLabX(qreal *x,int len);
 
 protected:
     arrayData *data;

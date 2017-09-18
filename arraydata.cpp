@@ -12,6 +12,7 @@ int arrayData::init()
 }
 int arrayData::setDrawStyle(int type,QColor c,int wide,int fill,QColor cc)
 {
+      //qDebug() << "colocr=" <<c;
         m_iDrawType = 0;
         m_iDrawType = type;
         m_iDrawWide = wide;
@@ -23,7 +24,7 @@ int arrayData::setDrawStyle(int type,QColor c,int wide,int fill,QColor cc)
         m_pen.setWidth(wide);
 
         //Qt::BrushStyle s;
-        //qDebug() << "color=" << cc<<c;
+       // qDebug() << "color=" << cc<<c << m_drawColor<<Qt::red;
         
         m_brush.setStyle(getBrushStyle(fill));
         m_brush.setColor(cc);
@@ -71,7 +72,24 @@ arrayData::M_DRAW arrayData::getDrawFromMAP(QString key)
 }
 qreal arrayData::labMethodX(qreal x)
 {
-    return x;
+    int i;
+    i = x;
+    if (labX.size() !=0)   
+    {
+        //qDebug() << " in lab=" << x << labX[x];
+        return labX[i];
+    }
+     
+    return x; 
+}
+void arrayData::setLabX(qreal *x,int len)
+{
+    int i;
+    for (i = 0;i < len;i++) 
+    {
+        labX[i] = x[i];
+       // qDebug() << i << x[i]<<labX[i];
+    }
 }
 qreal arrayData::labMethodY(qreal x)
 {
